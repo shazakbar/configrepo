@@ -1,0 +1,23 @@
+server:
+  port: 8050
+spring:
+  application:
+    name: api_gateway
+
+  cloud:
+    gateway:
+      routes:
+      - id: movie-catalog-service
+        uri: lb://movie-catalog-service
+        predicates:
+          - Path=/catalog/**
+
+      - id: movie-info-service
+        uri: lb://movie-info-service
+        predicates:
+          - Path=/movies/**
+
+      - id: movie-rating-service
+        uri: lb://movie-rating-service
+        predicates:
+          - Path=/rating/**
